@@ -6,9 +6,15 @@ public class Door : MonoBehaviour
 {
     public GameObject door;
     public Vector3 doorPos;
+    public float startPos;
     public float moveSpeed = 4f;
 
     public static bool openDoorBool;
+    private void Start()
+    {
+        doorPos = new Vector3(door.transform.position.x, door.transform.position.y, door.transform.position.z);
+        startPos = doorPos.y;
+    }
 
     void Update()
     {
@@ -29,7 +35,7 @@ public class Door : MonoBehaviour
 
     public void OpenDoor()
     {
-        if (doorPos.y < 2)
+        if (doorPos.y < startPos + 2)
         {
             door.transform.position += Vector3.up * Time.deltaTime * moveSpeed;
         }
@@ -37,7 +43,7 @@ public class Door : MonoBehaviour
 
     public void CloseDoor()
     {
-        if (doorPos.y > 0)
+        if (doorPos.y > startPos)
         {
             door.transform.position += Vector3.down * Time.deltaTime * moveSpeed;
         }
